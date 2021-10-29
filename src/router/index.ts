@@ -21,6 +21,16 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/views/UserHome.vue')
     },
     {
+        path: '/planner',
+        name: 'Planner',
+        component: () => import('@/views/Planner.vue')
+    },
+    {
+        path: '/planner/create-task',
+        name: "Create Task",
+        component: () => import('@/views/CreateTask.vue')
+    },
+    {
         path: '/signup',
         name: 'Sign Up',
         component: () => import('@/views/SignUp.vue')

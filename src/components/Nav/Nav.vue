@@ -9,6 +9,7 @@
                 </div>
                 <div v-else :class="navClass">
                     <NavLink to="/user-home">Home</NavLink>
+                    <NavLink to="/planner">Planner</NavLink>
                     <NavLink to="/manage-account">Manage Account</NavLink>
                     <a class="nav-link px-4" href="javascript:void(0)" @click="signOut">Sign Out</a>
                 </div>

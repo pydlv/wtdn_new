@@ -9,5 +9,6 @@ import Vue from 'vue'
 declare module 'vue/types/vue' {
     interface Vue {
         readonly $successToast: (string) => void
+        readonly $failToast: (string) => void
     }
 }

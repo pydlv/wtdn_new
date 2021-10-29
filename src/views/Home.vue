@@ -4,7 +4,7 @@
         <div class="m-4">
             <router-link to="/login"><b-button variant="primary col-4">Login</b-button></router-link>
             <p class="m-2">- OR -</p>
-            <b-button variant="primary col-4">Sign Up</b-button>
+            <router-link to="/signup"><b-button variant="primary col-4">Sign Up</b-button></router-link>
         </div>
     </div>
 </template>

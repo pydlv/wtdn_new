@@ -26,3 +26,12 @@ Vue.prototype.$successToast = (message: string) => {
         autoHideDelay: 2000
     })
 }
+
+Vue.prototype.$failToast = (message: string) => {
+    vm.$bvToast.toast(message, {
+        title: 'Failure',
+        variant: 'danger',
+        solid: true,
+        autoHideDelay: 2000
+    })
+}
