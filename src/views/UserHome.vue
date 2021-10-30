@@ -5,9 +5,9 @@
         </div>
 
         <div>
-            You have {{ numTasksTodo }} tasks awaiting completion.
+            You have {{ numTasksToDo }} tasks awaiting completion.
             <div class="mt-2">
-                <b-button variant="primary">View Planner</b-button>
+                <router-link to="/planner"><b-button variant="primary">View Planner</b-button></router-link>
             </div>
         </div>
     </div>
@@ -18,13 +18,23 @@
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
     import {authModule} from "@/store";
+    import {getOrCreatePlanner} from "@/dao/planner";
+    import {db} from "@/firestore";
 
     @Component
     export default class UserHome extends Vue {
         user = authModule.user;
+        numTasksToDo = 0;
 
-        get numTasksTodo() {
-            return 0;
+        async mounted() {
+            const planner = await getOrCreatePlanner();
+
+            const tasksFetchResult = await db.tasks
+                .where('plannerId', '==', planner.id)
+                .where('archived', '==', false)
+                .get();
+
+            this.numTasksToDo = tasksFetchResult.size;
         }
     }
 </script>

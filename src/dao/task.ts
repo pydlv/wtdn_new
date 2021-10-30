@@ -4,13 +4,14 @@ export enum TaskType {
 }
 
 export interface Task {
-    id: string,
+    id?: string,
     plannerId: string,
     type: TaskType,
     title: string,
     description: string,
     dateCreated: string,
     dueDate: string | null,
+    startDate: string | null,
     dueTime: string | null,
     startTime: string | null,
     endTime: string | null,

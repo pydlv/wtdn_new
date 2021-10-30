@@ -31,6 +31,11 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/views/CreateTask.vue')
     },
     {
+        path: '/planner/view/:id',
+        name: "View Modify Task",
+        component: () => import('@/views/ViewModifyTask.vue')
+    },
+    {
         path: '/signup',
         name: 'Sign Up',
         component: () => import('@/views/SignUp.vue')
