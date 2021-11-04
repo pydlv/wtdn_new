@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import {authModule} from "@/store";
+
 const firebaseConfig = {
     apiKey: "AIzaSyCPtLV7u_a0Pq3JN2BtQTediPiSTWh2-SA",
     authDomain: "wtdn-dd7cb.firebaseapp.com",
@@ -22,7 +23,7 @@ const auth = firebase.auth();
 auth.onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
-        console.log("Got sign in")
+        console.log("Got sign in");
     } else {
         // No user is signed in.
         console.log("Not signed in")

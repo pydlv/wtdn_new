@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 
 Vue.use(BootstrapVue);
 
-const vm = new Vue({
+export const vm = new Vue({
     router,
     store,
     render: h => h(App)

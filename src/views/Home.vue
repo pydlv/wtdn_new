@@ -10,9 +10,19 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator';
+    import {Component, Vue, Watch} from 'vue-property-decorator';
+    import {authModule} from "@/store";
 
     @Component
     export default class Home extends Vue {
+        @Watch('authModule.isLoggedIn')
+        userChanged(newValue: boolean) {
+            console.log("changed");
+            if (newValue) {
+                this.$router.replace('/user-home');
+            }
+        }
+
+        authModule = authModule;
     }
 </script>
