@@ -49,6 +49,11 @@ const routes: Array<RouteConfig> = [
         path: '/change-password',
         name: 'ChangePassword',
         component: () => import('@/views/ChangePassword.vue')
+    },
+    {
+        path: '/inspiration',
+        name: 'Inspiration',
+        component: () => import('@/views/Inspiration.vue')
     }
 ]
 

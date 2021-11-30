@@ -9,6 +9,9 @@
             <div class="mt-2">
                 <router-link to="/planner"><b-button variant="primary">View Planner</b-button></router-link>
             </div>
+            <div class="mt-2">
+                <router-link to="/inspiration"><b-button variant="primary">Get Motivated</b-button></router-link>
+            </div>
         </div>
     </div>
 
