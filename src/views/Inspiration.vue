@@ -4,9 +4,11 @@
             <p class="font-weight-bold h4">{{ nextTaskName }}</p>
             <span class="font-weight-light fs">{{ startTime.format("dddd, MMMM Do YYYY, h:mm:ss a") }}</span>
 
-            <b-button variant="primary" class="mt-2" @click="markComplete">
-                Mark Complete
-            </b-button>
+            <div>
+                <b-button variant="primary" class="mt-2" @click="markComplete">
+                    Mark Complete
+                </b-button>
+            </div>
 
             <blockquote class="blockquote font-italic font-weight-light pt-4 bg-active">
                 {{ quote }}
@@ -20,11 +22,10 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import {sortClosestTasks, Task, TaskType} from "@/dao/task";
+    import {getStartTime, sortTasks, Task} from "@/dao/task";
     import {db} from "@/firestore";
     import {getOrCreatePlanner} from "@/dao/planner";
-    import moment from "moment";
-    import { quotes } from "@/quotes";
+    import {quotes} from "@/quotes";
     import {choose} from "@/util";
 
     @Component
@@ -44,7 +45,7 @@
             const tasks = result.docs.map(doc => doc.data());
 
             if (tasks) {
-                sortClosestTasks(tasks);
+                sortTasks(tasks);
 
                 this.nextTask = tasks[0];
 
@@ -59,11 +60,7 @@
 
         get startTime() {
             if (this.nextTask) {
-                if (this.nextTask.type === TaskType.Task) {
-                    return moment(this.nextTask.dueDate + ' ' + this.nextTask.dueTime);
-                } else {
-                    return moment(this.nextTask.startDate + ' ' + this.nextTask.startTime);
-                }
+                return getStartTime(this.nextTask);
             }
 
             return null;

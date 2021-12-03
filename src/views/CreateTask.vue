@@ -54,6 +54,9 @@
                 </div>
             </div>
             <div v-else>
+                <div class="mt-4 mb-4" style="font-size:1.2rem">
+                    Click <a href="javascript:void(0);" @click="getFromScheduler">here</a> to request a date/time from the scheduler.
+                </div>
                 <div class="d-flex justify-content-between">
                     <div class="text-nowrap mr-4">
                         Date:
@@ -106,6 +109,7 @@
     import {Task, TaskType} from "@/dao/task";
     import {db} from "@/firestore";
     import {getOrCreatePlanner} from "@/dao/planner";
+    import {getDuration, recommendDateTime} from "@/scheduler";
 
     @Component
     export default class CreateTask extends Vue {
@@ -151,6 +155,18 @@
             } finally {
                 this.loading = false;
             }
+        }
+
+        async getFromScheduler() {
+            const duration = getDuration();
+
+            const start = await recommendDateTime(duration);
+            const end = start.clone();
+            end.add(duration, "minutes");
+
+            this.startDate = start.format("YYYY-MM-DD");
+            this.startTime = start.format("HH:mm");
+            this.endTime = end.format("HH:mm");
         }
 
         TaskType = TaskType;

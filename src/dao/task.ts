@@ -1,3 +1,7 @@
+import moment from "moment";
+import {getOrCreatePlanner} from "@/dao/planner";
+import {db} from "@/firestore";
+
 export enum TaskType {
     Event = "Event",
     Task = "Task"
@@ -19,40 +23,61 @@ export interface Task {
 }
 
 
-export function sortClosestTasks(tasks: Task[]) {
-    const getStart = (task: Task) => task.type === TaskType.Task ? [task.dueDate, task.dueTime] : [task.startDate, task.startTime];
-
+export function sortTasks(tasks: Task[], reverse=false) {
     tasks.sort((a, b) => {
-        const [aStartDate, aStartTime] = getStart(a);
-        const [bStartDate, bStartTime] = getStart(b);
+        const aStart = getStartTime(a);
+        const bStart = getStartTime(b);
 
-        const aStart = new Date();
-        const bStart = new Date();
-
-        if (aStartDate) {
-            const j = new Date(aStartDate);
-            aStart.setMonth(j.getMonth());
-            aStart.setDate(j.getDate());
-            aStart.setFullYear(j.getFullYear());
+        if (!reverse) {
+            return aStart.unix() - bStart.unix();
+        } else {
+            return bStart.unix() - aStart.unix();
         }
-
-        if (aStartTime) {
-            const j = new Date(aStartTime);
-            aStart.setHours(j.getHours(), j.getMinutes(), j.getSeconds());
-        }
-
-        if (bStartDate) {
-            const j = new Date(bStartDate);
-            bStart.setMonth(j.getMonth());
-            bStart.setDate(j.getDate());
-            bStart.setFullYear(j.getFullYear());
-        }
-
-        if (bStartTime) {
-            const j = new Date(bStartTime);
-            bStart.setHours(j.getHours(), j.getMinutes(), j.getSeconds());
-        }
-
-        return aStart.getTime() - bStart.getTime();
     })
+}
+
+
+export function getStartTime(task: Task) {
+    let date, time;
+
+    if (task.type === TaskType.Task) {
+        date = task.dueDate || '';
+        time = task.dueTime || '';
+    } else {
+        date = task.startDate || '';
+        time = task.startTime || '';
+    }
+
+    return moment((date + ' ' + time).trim());
+}
+
+export function getEndTime(task: Task) {
+    let date, time;
+
+    if (task.type === TaskType.Task) {
+        date = task.dueDate || '';
+        time = task.dueTime || '';
+    } else {
+        date = task.startDate || '';
+        time = task.endTime || '';
+    }
+
+    return moment((date + ' ' + time).trim());
+}
+
+
+export async function getUpcomingTasks(archived=false) {
+    // Fetch the tasks
+    const planner = await getOrCreatePlanner();
+
+    const result = await db.tasks
+        .where('plannerId', '==', planner.id)
+        .where('archived', '==', archived)
+        .get();
+
+    const tasks = result.docs.map(doc => doc.data());
+
+    sortTasks(tasks, archived);  // When we are viewing archived tasks, we want to show most recent first.
+
+    return tasks;
 }

@@ -227,6 +227,8 @@
                 await db.tasks.doc(this.task!.id).update(this.task);
 
                 this.$successToast("Successfully saved task!");
+
+                await this.$router.push('/planner');
             } catch (e) {
                 this.$failToast("Failed to save task, please try again.");
                 console.error(e);

@@ -18,7 +18,8 @@ module.exports = {
         '@typescript-eslint/no-empty-function': 'warn',
         '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/no-inferrable-types': 'off'
+        '@typescript-eslint/no-inferrable-types': 'off',
+        'no-constant-condition': 'off'
     },
     overrides: [
         {

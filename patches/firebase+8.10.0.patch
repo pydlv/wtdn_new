@@ -1,0 +1,24 @@
+diff --git a/node_modules/firebase/index.d.ts b/node_modules/firebase/index.d.ts
+index 4a8a58d..148c2eb 100644
+--- a/node_modules/firebase/index.d.ts
++++ b/node_modules/firebase/index.d.ts
+@@ -8176,6 +8176,10 @@ declare namespace firebase.firestore {
+    */
+   export const CACHE_SIZE_UNLIMITED: number;
+ 
++  export type HasID<T> = T & {
++    id: string
++  }
++
+   /**
+    * Specifies custom configurations for your Cloud Firestore instance.
+    * You must set these before invoking any other methods.
+@@ -9524,7 +9528,7 @@ declare namespace firebase.firestore {
+      * not yet been set to their final value).
+      * @return An Object containing all fields in the document.
+      */
+-    data(options?: SnapshotOptions): T;
++    data(options?: SnapshotOptions): HasID<T>;
+   }
+ 
+   /**

@@ -9,7 +9,7 @@ export type HasID<T> = T & {
 
 const converter = <T>() => ({
     toFirestore: (data: Partial<T>) => data,
-    fromFirestore: (snap: FirebaseFirestore.QueryDocumentSnapshot) => {
+    fromFirestore: (snap: FirebaseFirestore.QueryDocumentSnapshot): HasID<T> => {
         return {
             id: snap.id,
             ...snap.data() as T,
