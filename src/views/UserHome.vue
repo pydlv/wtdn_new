@@ -6,10 +6,10 @@
 
         <div>
             You have {{ numTasksToDo }} tasks awaiting completion.
-            <div class="mt-2">
+            <div class="mt-4">
                 <router-link to="/planner"><b-button variant="primary">View Planner</b-button></router-link>
             </div>
-            <div class="mt-2">
+            <div class="mt-4">
                 <router-link to="/inspiration"><b-button variant="primary">Get Motivated</b-button></router-link>
             </div>
         </div>
