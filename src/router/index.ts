@@ -54,6 +54,11 @@ const routes: Array<RouteConfig> = [
         path: '/inspiration',
         name: 'Inspiration',
         component: () => import('@/views/Inspiration.vue')
+    },
+    {
+        path: '/reports',
+        name: 'Reports',
+        component: () => import('@/views/Reports.vue')
     }
 ]
 

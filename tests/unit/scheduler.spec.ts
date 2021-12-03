@@ -3,6 +3,7 @@ import {Task, TaskType} from "@/dao/task";
 import * as taskModule from "@/dao/task";
 import {HasID} from "@/firestore";
 
+// For unit tests we should mock the tasks so that we don't have to make an authorized call to firestore.
 async function getTestTasks(): Promise<HasID<Task>[]> {
     return [
         {
