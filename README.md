@@ -1,4 +1,11 @@
-# wtdn_new
+# Group 3 Senior Project
+
+# Requirements
+You need to install:
+* Node.js
+* Yarn package manager
+
+
 
 ## Project setup
 ```
